@@ -24,7 +24,11 @@ include /usr/share/dpkg/default.mk
 # This is example for Cmake (See http://bugs.debian.org/641051 )
 override_dh_auto_configure:
 	dh_auto_configure -- \
-	-DCMAKE_TOOLCHAIN_FILE=/etc/dpkg-cross/cmake/CMakeCross.txt \
+	-DCMAKE_C_COMPILER=/usr/bin/${DEB_HOST_MULTIARCH}-gcc \
+	-DCMAKE_CXX_COMPILER=/usr/bin/${DEB_HOST_MULTIARCH}-g++ \
+	-DPKG_CONFIG_EXECUTABLE=/usr/bin/${DEB_HOST_MULTIARCH}-pkg-config \
+	-DCMAKE_LIBRARY_PATH=${DEB_HOST_MULTIARCH} \
+	-DCMAKE_LIBRARY_ARCHITECTURE=${DEB_HOST_MULTIARCH} \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DRKPLATFORM=ON \
 	-DHAVE_DRM=ON
